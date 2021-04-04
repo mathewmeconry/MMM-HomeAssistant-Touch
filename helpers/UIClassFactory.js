@@ -9,6 +9,8 @@ class UIClassFactory {
         return Switch;
       case "cover":
         return Cover;
+      case "media_player":
+        return MediaPlayer;
       default:
         return Unsupported;
     }

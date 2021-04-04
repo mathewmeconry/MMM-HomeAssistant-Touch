@@ -11,6 +11,7 @@ module.exports = NodeHelper.create({
   getState,
   toggleState,
   setCoverPosition,
+  setMediaPlayerVolume,
   onStateChangedEvent,
 });
 
@@ -49,6 +50,9 @@ function socketNotificationReceived(notification, payload) {
       break;
     case "SET_COVER_POSITION":
       this.setCoverPosition(payload);
+      break;
+    case "SET_MEDIAPLAYER_VOLUME":
+      this.setMediaPlayerVolume(payload);
       break;
   }
 }
@@ -89,7 +93,6 @@ async function getState(payload) {
   const hass = this.connections[payload.identifier].hass;
   const [domain, entity] = payload.entity.split(".");
   const response = await hass.states.get(domain, entity);
-  this.logger.debug(`Got state for ${payload.entity}`);
   this.sendSocketNotification("GOT_STATE", {
     identifier: payload.identifier,
     data: response,
@@ -104,18 +107,31 @@ async function toggleState(payload) {
   this.logger.debug(`Toggling state for ${payload.entity}`);
   const hass = this.connections[payload.identifier].hass;
   const [domain, entity] = payload.entity.split(".");
-  const response = await hass.services.call("toggle", domain, entity);
+  await hass.services.call("toggle", domain, entity);
   this.getState(payload);
 }
 
 async function setCoverPosition(payload) {
-  this.logger.debug(`Setting position for cover ${payload.entity} to ${payload.position}`)
+  this.logger.debug(
+    `Setting position for cover ${payload.entity} to ${payload.position}`
+  );
   const hass = this.connections[payload.identifier].hass;
-  const response = await hass.services.call("set_cover_position", 'cover', {
+  await hass.services.call("set_cover_position", "cover", {
     entity_id: payload.entity,
-    position: payload.position
+    position: payload.position,
   });
   this.getState(payload);
+}
+
+async function setMediaPlayerVolume(payload) {
+  this.logger.debug(
+    `Setting volume for media_player ${payload.entity} to ${payload.volume_level}`
+  );
+  const hass = this.connections[payload.identifier].hass;
+  await hass.services.call("volume_set", "media_player", {
+    entity_id: payload.entity,
+    volume_level: payload.volume_level,
+  });
 }
 
 function onStateChangedEvent(event) {
