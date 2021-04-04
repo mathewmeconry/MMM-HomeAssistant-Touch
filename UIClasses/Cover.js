@@ -61,9 +61,13 @@ class Cover extends Base {
   }
 
   onSliderMove(event) {
+    let y = event.y
+    if(event.touches) {
+        y = event.touches[0].clientY
+    }
     const sliderFill = document.getElementById(`slider-fill-${this.id}`);
     if (sliderFill) {
-      const offset = this.sliderStartY - event.y;
+      const offset = this.sliderStartY - y;
       this.sliderState = this.state + Math.round((100 / 200) * offset);
       if(this.sliderState > 100) this.sliderState = 100
       if(this.sliderState < 0) this.sliderState = 0
