@@ -1,0 +1,15 @@
+{
+  "name": "mmm-homeassistant-touch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "MMM-HomeAssistant-Touch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mathias Scherer <scherer.mat@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "homeassistant": "^0.2.0",
+    "homeassistant-ws": "^0.1.3"
+  }
+}

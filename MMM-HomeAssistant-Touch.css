@@ -1,0 +1,25 @@
+#MMM-HomeAssistant-Touch {
+  display: flex;
+  justify-content: center;
+}
+
+#MMM-HomeAssistant-Touch .ha-entity {
+  border: 0.1rem solid grey;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+
+#MMM-HomeAssistant-Touch .ha-entity .title,
+#MMM-HomeAssistant-Touch .ha-entity .status {
+  display: block;
+}
+
+#MMM-HomeAssistant-Touch .ha-entity.ha-switch.on,
+#MMM-HomeAssistant-Touch .ha-entity.ha-light.on {
+    background-color: #2AF20261;
+}
+
+body {
+  cursor: default;
+}
