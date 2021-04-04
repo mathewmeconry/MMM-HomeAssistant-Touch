@@ -14,8 +14,8 @@ class Light extends Base {
   render() {
     super.render();
     const container = document.getElementById(this.id);
-    container.classList.add(this.state);
-
-    container.appendChild(statusCheckbox);
+    if (container) {
+      container.classList.add(this.state);
+    }
   }
 }

@@ -20,6 +20,7 @@ Module.register("MMM-HomeAssistant-Touch", {
       this.file("./UIClasses/Base.js"),
       this.file("./UIClasses/Light.js"),
       this.file("./UIClasses/Switch.js"),
+      this.file("./UIClasses/Cover.js"),
       this.file("./UIClasses/Unsupported.js"),
     ];
   },

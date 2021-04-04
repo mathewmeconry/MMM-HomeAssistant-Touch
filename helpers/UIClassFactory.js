@@ -7,6 +7,8 @@ class UIClassFactory {
         return Light;
       case "switch":
         return Switch;
+      case "cover":
+        return Cover;
       default:
         return Unsupported;
     }

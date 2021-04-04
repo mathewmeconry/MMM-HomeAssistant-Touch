@@ -6,7 +6,7 @@ class Switch extends Base {
     };
     entity.ontouchend = () => {
       this.mm.sendSocketNotification("TOGGLE_STATE", { entity: this.id });
-    }
+    };
 
     return entity;
   }
@@ -14,8 +14,8 @@ class Switch extends Base {
   render() {
     super.render();
     const container = document.getElementById(this.id);
-    container.classList.add(this.state)
-
-    container.appendChild(statusCheckbox);
+    if (container) {
+      container.classList.add(this.state);
+    }
   }
 }
