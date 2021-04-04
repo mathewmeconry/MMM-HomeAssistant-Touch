@@ -10,9 +10,11 @@ class Cover extends Base {
     entity.onmousedown = (event) => {
       this.addSlider(event.x, event.y);
     };
-    entity.onmouseup = () => {
-      this.removeSlider();
-    };
+    entity.onpointerdown = (event) => {
+        this.addSlider(event.x, event.y)
+    }
+    entity.onmouseup = this.removeSlider
+    entity.ontouchend = this.removeSlider
     return entity;
   }
 
@@ -50,7 +52,9 @@ class Cover extends Base {
     document.body.appendChild(slider);
 
     document.body.addEventListener("mouseup", this.removeSlider);
+    document.body.addEventListener("touchend", this.removeSlider)
     document.body.addEventListener("mousemove", this.onSliderMove);
+    document.body.addEventListener("touchmove", this.onSliderMove);
 
     this.sliderStartY = offsetY;
     this.sliderState = this.state;
@@ -61,6 +65,8 @@ class Cover extends Base {
     if (sliderFill) {
       const offset = this.sliderStartY - event.y;
       this.sliderState = this.state + Math.round((100 / 200) * offset);
+      if(this.sliderState > 100) this.sliderState = 100
+      if(this.sliderState < 0) this.sliderState = 0
       sliderFill.style.height = `${this.sliderState}%`;
       sliderFill.innerHTML = this.sliderState;
     }
@@ -72,7 +78,9 @@ class Cover extends Base {
       slider.remove();
     }
     document.body.removeEventListener("mouseup", this.removeSlider);
+    document.body.removeEventListener("touchend", this.removeSlider)
     document.body.removeEventListener("mousemove", this.onSliderMove);
+    document.body.removeEventListener("touchmove", this.onSliderMove);
     this.sendNewState();
   }
 
