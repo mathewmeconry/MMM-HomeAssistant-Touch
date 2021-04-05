@@ -1,6 +1,7 @@
 # MMM-HomeAssistant-Touch
 
-This module provides an integration to HomeAssitant with touch controls
+This module provides an integration to HomeAssitant with touch controls.
+It also supports multiple HomeAssistant hosts and connections. You can achieve this by adding the module multiple times to the config.js with different configurations
 
 Currently the following modules are supported:
 
@@ -8,6 +9,10 @@ Currently the following modules are supported:
 - Media Player
 - Switch
 - Light
+
+## Connection
+
+This module communicatates via Rest API with HomeAssistant and registers websocket listeners for state upates.
 
 ## Config
 
