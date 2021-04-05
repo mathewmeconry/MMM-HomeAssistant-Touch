@@ -11,4 +11,20 @@ class Cover extends Slider {
       position: this.sliderState,
     });
   }
+
+  render() {
+      super.render()
+      const container = document.getElementById(this.id)
+      if(container) {
+        const status = document.createElement('div')
+        status.classList.add('status')
+        status.style.height = `${this.state}%`
+
+        if(this.state === 100) {
+            status.classList.add('full')
+        }
+
+        container.appendChild(status)
+    }
+  }
 }
