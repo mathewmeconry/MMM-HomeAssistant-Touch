@@ -37,7 +37,8 @@ class Slider extends Base {
     slider.appendChild(sliderFill);
     document.body.appendChild(slider);
 
-    document.body.addEventListener("mouseup", this.removeSlider);
+    document.body.addEventListener("mouseup", this.removeSlider);   
+    document.body.addEventListener("pointerup", this.removeSlider);
     document.body.addEventListener("touchend", this.removeSlider);
     document.body.addEventListener("mousemove", this.onSliderMove);
     document.body.addEventListener("touchmove", this.onSliderMove);
@@ -68,6 +69,7 @@ class Slider extends Base {
       slider.remove();
     }
     document.body.removeEventListener("mouseup", this.removeSlider);
+    document.body.removeEventListener("pointerup", this.removeSlider);
     document.body.removeEventListener("touchend", this.removeSlider);
     document.body.removeEventListener("mousemove", this.onSliderMove);
     document.body.removeEventListener("touchmove", this.onSliderMove);
