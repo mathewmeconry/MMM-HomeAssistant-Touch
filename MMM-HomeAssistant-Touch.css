@@ -61,10 +61,6 @@
   text-align: center;
 }
 
-body {
-  cursor: default;
-}
-
 .ha-media_player {
   background-size: cover;
 }
