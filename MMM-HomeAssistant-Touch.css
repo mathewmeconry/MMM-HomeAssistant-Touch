@@ -28,6 +28,7 @@
     padding: 0;
     padding-left: .5rem;
     height: 8rem;
+    width: 7.5rem;
     display: flex;
 }
 #MMM-HomeAssistant-Touch .ha-entity.ha-cover .title{
@@ -62,4 +63,48 @@
 
 body {
   cursor: default;
+}
+
+.ha-media_player {
+  background-size: cover;
+}
+
+.ha-media_player .title {
+  mix-blend-mode: difference;
+  height: 6rem;
+}
+
+.ha-media_player .media_player_control {
+  width: 8.2rem;
+  height: 1.6rem;
+  margin-left: -10px;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  display: flex;
+}
+
+.ha-media_player .media_player_control div {
+  display: block;
+  flex-grow: 1;
+  border: 1px solid grey;
+  display: inline;
+}
+
+.ha-media_player .media_player_control div i.fas {
+  display: block;
+  margin-top: 3px;
+  mix-blend-mode: color-dodge;
+}
+
+.ha-media_player .media_player_control div:nth-child(1) {
+  border-bottom-left-radius: 0.5rem;
+}
+
+.ha-media_player .media_player_control div:nth-child(2n) {
+  border-right: 0;
+  border-left: 0;
+}
+
+.ha-media_player .media_player_control div:nth-last-child(1) {
+  border-bottom-right-radius: 0.5rem;
 }

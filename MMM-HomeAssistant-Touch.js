@@ -12,7 +12,7 @@ Module.register("MMM-HomeAssistant-Touch", {
   getDom,
   socketNotificationReceived,
   getStyles: function () {
-    return [this.file("MMM-HomeAssistant-Touch.css")];
+    return [this.file("MMM-HomeAssistant-Touch.css"), "font-awesome.css"];
   },
   getScripts: function () {
     return [

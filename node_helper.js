@@ -12,6 +12,9 @@ module.exports = NodeHelper.create({
   toggleState,
   setCoverPosition,
   setMediaPlayerVolume,
+  mediaPlayerPlayPause,
+  mediaPlayerNext,
+  mediaPlayerPrevious,
   onStateChangedEvent,
 });
 
@@ -53,6 +56,15 @@ function socketNotificationReceived(notification, payload) {
       break;
     case "SET_MEDIAPLAYER_VOLUME":
       this.setMediaPlayerVolume(payload);
+      break;
+    case "MEDIA_PLAYER_PLAYPAUSE":
+      this.mediaPlayerPlayPause(payload);
+      break;
+    case "MEDIA_PLAYER_PREVIOUS":
+      this.mediaPlayerPrevious(payload);
+      break;
+    case "MEDIA_PLAYER_NEXT":
+      this.mediaPlayerNext(payload);
       break;
   }
 }
@@ -133,6 +145,31 @@ async function setMediaPlayerVolume(payload) {
     volume_level: payload.volume_level,
   });
 }
+
+async function mediaPlayerPlayPause(payload) {
+  this.logger.debug(`Play/Pause for media_player ${payload.entity}`);
+  const hass = this.connections[payload.identifier].hass;
+  await hass.services.call("media_play_pause", "media_player", {
+    entity_id: payload.entity
+  });
+}
+
+async function mediaPlayerNext(payload) {
+  this.logger.debug(`Next for media_player ${payload.entity}`);
+  const hass = this.connections[payload.identifier].hass;
+  await hass.services.call("media_next_track", "media_player", {
+    entity_id: payload.entity
+  });
+}
+
+async function mediaPlayerPrevious(payload) {
+  this.logger.debug(`Next for media_player ${payload.entity}`);
+  const hass = this.connections[payload.identifier].hass;
+  await hass.services.call("media_previous_track", "media_player", {
+    entity_id: payload.entity
+  });
+}
+
 
 function onStateChangedEvent(event) {
   //this.logger.debug(`Got state change for ${event.data.entity_id}`);
