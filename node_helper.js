@@ -8,6 +8,7 @@ module.exports = NodeHelper.create({
   stop,
   socketNotificationReceived,
   connect,
+  connectWs,
   getState,
   toggleState,
   setCoverPosition,
@@ -83,6 +84,10 @@ async function connect(payload) {
     entities: [],
   };
 
+  this.connectWs(connectionConfig, payload)
+}
+
+async function connectWs(connectionConfig, payload) {
   const self = this;
   HomeAssistantWS.default({
     ...connectionConfig,
@@ -90,13 +95,22 @@ async function connect(payload) {
   })
     .then((hassWs) => {
       this.connections[payload.identifier].websocket = hassWs;
-      hassWs.onEvent("state_changed", onStateChangedEvent.bind(self));
+      hassWs.on("state_changed", onStateChangedEvent.bind(self));
+      hassWs.on('ws_close', () => {
+        this.logger.debug(`Lost connection for ${payload.identifier}... Trying to reconnect in 2secs`)
+        setTimeout(() => {
+          this.connectWs(connectionConfig, payload)
+        }, 2000)
+      })
     })
     .catch((err) => {
       this.logger.error(
-        `WS connection for ${payload.identifier} failed with`,
-        err
+        `WS connection for ${payload.identifier} failed...`
       );
+      this.logger.debug(`Trying to reconnect for ${payload.identifier} in 2secs`)
+      setTimeout(() => {
+        this.connectWs(connectionConfig, payload)
+      }, 2000)
     });
 }
 
